@@ -9,6 +9,9 @@ let client = new ApiClient(process.env.REACT_APP_WEATHER_API_BASE_URL);
 
 export default {
   getWeather(data) {
-    return client.get();
+    const { latitude, longitude } = data;
+    return client.get(
+      `/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+    );
   },
 };

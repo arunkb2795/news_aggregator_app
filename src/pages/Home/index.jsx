@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Layout,
   Navbar,
@@ -16,12 +17,36 @@ import {
   DEFAULT_LANGUAGE,
   DEFAULT_SORT,
 } from "../../constants";
+import { getWeatherDetails } from "../../redux/weatherDetailsSlice";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { MOCK_DATA } from "../../constants/mockData";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
   const [sort, setSort] = useState(DEFAULT_SORT);
+  const dispatch = useDispatch();
+
+  const { isLoadingWeatherData, isErrorWeatherData, weatherData } = useSelector(
+    (state) => state.weather
+  );
+
+  const getCurrentLocationData = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        dispatch(
+          getWeatherDetails({ latitude: latitude, longitude: longitude })
+        );
+      });
+    }
+  };
+
+  useEffect(() => {
+    getCurrentLocationData();
+  }, []);
 
   const handleSearchChange = (e) => {
     console.log(e.target.value);
@@ -36,6 +61,18 @@ export default function Home() {
   const handleCountryChange = (e) => {
     console.log(e.target.value);
     setLanguage(e.target.value);
+  };
+
+  const renderWeatherCard = () => {
+    return (
+      <WeatherCard
+        climate={weatherData?.weather[0].main ?? null}
+        location={weatherData?.name ?? null}
+        temperature={parseInt(weatherData?.main.temp) - 273.15 ?? null}
+        isLoadingWeatherData={isLoadingWeatherData}
+        isErrorWeatherData={isErrorWeatherData}
+      />
+    );
   };
 
   return (
@@ -69,7 +106,7 @@ export default function Home() {
             />
           </Stack>
         </ToolBar>
-        <WeatherCard climate={"Sunny"} location={"USA"} temperature={27.9} />
+        {renderWeatherCard()}
       </Navbar>
       <Layout>
         <Box sx={{ mt: "16rem" }}>
@@ -91,6 +128,7 @@ export default function Home() {
             })}
           </Grid>
         </Box>
+        <ToastContainer position="bottom-left" />
       </Layout>
     </>
   );

@@ -1,40 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
 import weatherClient from "../api/weatherClient";
+import { toast } from "react-toastify";
+/*
+  weatherDetailsSlice is fetch the weather data from API.
+*/
+
 export const weatherDetailsSlice = createSlice({
   name: "weather-details",
   initialState: {
-    isLoading: false,
-    isSuccess: false,
-    wetherData: null,
-    isError: false,
+    isLoadingWeatherData: false,
+    isSuccessWeatherData: false,
+    weatherData: null,
+    isErrorWeatherData: false,
   },
   reducers: {
     setIsLoading: (state, action) => {
-      state.isLoading = action.payload;
+      state.isLoadingWeatherData = action.payload;
     },
     setIsSuccess: (state, action) => {
-      state.isSuccess = action.payload;
+      state.isSuccessWeatherData = action.payload;
     },
     getWeatherDetailsData: (state, action) => {
-      state.wetherData = action.payload;
+      state.weatherData = action.payload;
     },
     setIsError: (state, action) => {
-      state.isError = action.payload;
+      state.isErrorWeatherData = action.payload;
     },
   },
 });
 
-export const getWeatherDetails = ({ latitude, longitude }) => {
+export const getWeatherDetails = (data) => {
   return async (dispatch) => {
     dispatch(weatherDetailsAction.setIsLoading(true));
     try {
-      const response = await weatherClient.getWeather({ latitude, longitude });
-      dispatch(weatherDetailsAction.setIsSuccess(true));
-      dispatch(weatherDetailsAction.getWeatherDetailsData(response.data));
+      const response = await weatherClient.getWeather(data);
+      if (response.status === 200) {
+        toast.success("Successfully fetch weather details");
+        dispatch(weatherDetailsAction.setIsSuccess(true));
+        dispatch(weatherDetailsAction.getWeatherDetailsData(response.data));
+      } else {
+        toast.error("Something went wrong please try again later.");
+      }
       dispatch(weatherDetailsAction.setIsLoading(false));
     } catch (err) {
-      console.log(err);
-      dispatch(weatherDetailsAction.setIsError(false));
+      dispatch(weatherDetailsAction.setIsError(true));
+      dispatch(weatherDetailsAction.setIsLoading(false));
+      toast.error("Something went wrong please try again later.");
     }
   };
 };
