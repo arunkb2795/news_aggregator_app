@@ -5,6 +5,9 @@ const theme = createTheme({
     primary: {
       main: "#4150FA",
     },
+    secondary: {
+      main: "#fff",
+    },
   },
   typography: {
     fontFamily: ["Poppins, sans-serif"],
@@ -14,6 +17,10 @@ const theme = createTheme({
     },
     h3: {
       fontSize: 22,
+      fontWeight: "bold",
+    },
+    h4: {
+      fontSize: 18,
       fontWeight: "bold",
     },
     subTitle: {

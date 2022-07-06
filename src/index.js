@@ -11,15 +11,13 @@ import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </Router>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </Router>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

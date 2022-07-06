@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { postDetailsReducer } from "../redux/postDetailsSlice";
+import { weatherDetailsReducer } from "../redux/weatherDetailsSlice";
+import { newsDetailsReducer } from "../redux/newsDetailsSlice";
 
 export const store = configureStore({
   reducer: {
-    posts: postDetailsReducer,
+    weather: weatherDetailsReducer,
+    news: newsDetailsReducer,
   },
 });

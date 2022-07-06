@@ -1,18 +1,12 @@
 import React, { Fragment } from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
+import { Box, CssBaseline } from "@mui/material";
 
 export default function Layout(props) {
   const { children } = props;
   return (
     <Fragment>
       <CssBaseline />
-      <Container
-        maxWidth="md"
-        sx={{ display: "flex", justifyContent: "center", p: 0 }}
-      >
-        {children}
-      </Container>
+      <Box sx={{ m: "1rem" }}>{children}</Box>
     </Fragment>
   );
 }
