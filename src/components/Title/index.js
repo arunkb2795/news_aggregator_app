@@ -1,13 +1,15 @@
 import React from "react";
-import { Divider, Box, Chip } from "@mui/material";
+import TitleChip from "../Chip";
 
 export default function Title(props) {
-  const { heading } = props;
-  return (
-    <Box sx={{ mb: "2rem" }}>
-      <Divider>
-        <Chip label={heading} color={"primary"} />
-      </Divider>
-    </Box>
+  const { heading, searchTerm } = props;
+  return searchTerm ? (
+    <TitleChip
+      heading={`Search result: ${searchTerm}`}
+      variant="outlined"
+      textAlign="left"
+    />
+  ) : (
+    <TitleChip heading={heading} />
   );
 }

@@ -49,19 +49,24 @@ export default function NewsCard(props) {
               <Box>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <UserAvatar name={author ?? "Anonymous"} />
-                  <Typography variant="subTitle">
+                  <Typography
+                    variant="subTitle"
+                    sx={{ wordBreak: " break-all" }}
+                  >
                     {author ?? "Anonymous"}
                   </Typography>
                 </Stack>
               </Box>
               <Box>
                 <Typography variant="subTitle">
-                  {moment(publishedAt).format("DD-MM-YYYY hh:mm A")}
+                  {moment(publishedAt).format("DD MMMM YYYY hh:mm A")}
                 </Typography>
               </Box>
             </Stack>
             <Box sx={{ py: "1rem" }}>
-              <Typography variant="subTitle">{title}</Typography>
+              <Typography variant="subTitle" sx={{ wordBreak: " break-all" }}>
+                {title}
+              </Typography>
             </Box>
           </Box>
         </Stack>

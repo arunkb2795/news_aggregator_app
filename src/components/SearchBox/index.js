@@ -9,7 +9,8 @@ import {
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 export default function SearchBox(props) {
-  const { label, name, type, value, variant, handleChange } = props;
+  const { label, name, placeholder, type, value, variant, handleChange } =
+    props;
   return (
     <FormControl variant={variant} sx={{ width: { md: "30%" } }}>
       <InputLabel htmlFor={name}>{label}</InputLabel>
@@ -19,6 +20,7 @@ export default function SearchBox(props) {
         label={label}
         type={type}
         value={value}
+        placeholder={placeholder}
         onChange={handleChange}
         startAdornment={
           <InputAdornment position="start">

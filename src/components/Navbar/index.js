@@ -23,7 +23,7 @@ export default function NavBar({ children }) {
             </Stack>
             <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
               <Typography variant="body1">
-                {moment().format("hh:mm A")}
+                {moment().format("DD MMMM YYYY hh:mm A")}
               </Typography>
             </Stack>
           </Stack>

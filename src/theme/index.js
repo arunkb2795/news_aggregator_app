@@ -23,6 +23,10 @@ const theme = createTheme({
       fontSize: 18,
       fontWeight: "bold",
     },
+    h6: {
+      fontSize: 14,
+      fontWeight: "bold",
+    },
     subTitle: {
       fontSize: 12,
     },

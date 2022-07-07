@@ -7,3 +7,7 @@ export { default as WeatherCard } from "./WeatherCard";
 export { default as UserAvatar } from "./UserAvatar";
 export { default as Title } from "./Title";
 export { default as ToolBar } from "./ToolBar";
+export { default as Spinner } from "./Spinner";
+export { default as NotFound } from "./NotFound";
+export { default as Chip } from "./Chip";
+

@@ -4,23 +4,27 @@ import {
   Layout,
   Navbar,
   Card,
-  SearchBox,
-  SelectBox,
   WeatherCard,
   Title,
   ToolBar,
+  Spinner,
+  NotFound,
 } from "../../components";
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import {
   SORT_BY,
   COUNTRIES,
   DEFAULT_LANGUAGE,
   DEFAULT_SORT,
 } from "../../constants";
+import useDebounce from "../../hooks/useDebounce";
 import { getWeatherDetails } from "../../redux/weatherDetailsSlice";
+import {
+  getTopNewsHeadLines,
+  getSearchedNewsDetails,
+} from "../../redux/newsDetailsSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { MOCK_DATA } from "../../constants/mockData";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,6 +35,9 @@ export default function Home() {
   const { isLoadingWeatherData, isErrorWeatherData, weatherData } = useSelector(
     (state) => state.weather
   );
+  const { isNewsLoading, newsData } = useSelector((state) => state.news);
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const getCurrentLocationData = () => {
     if (navigator.geolocation) {
@@ -48,86 +55,92 @@ export default function Home() {
     getCurrentLocationData();
   }, []);
 
-  const handleSearchChange = (e) => {
-    console.log(e.target.value);
-    setSearchTerm(e.target.value);
-  };
+  useEffect(() => {
+    dispatch(getTopNewsHeadLines({ sort: sort, language: language }));
+  }, [dispatch, sort, language]);
 
-  const handleSortChange = (e) => {
-    console.log(e.target.value);
-    setSort(e.target.value);
-  };
-
-  const handleCountryChange = (e) => {
-    console.log(e.target.value);
-    setLanguage(e.target.value);
-  };
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      dispatch(
+        getSearchedNewsDetails({
+          searchKey: debouncedSearchTerm,
+          sort: sort,
+          language: language,
+        })
+      );
+    }
+  }, [dispatch, sort, language, debouncedSearchTerm]);
 
   const renderWeatherCard = () => {
     return (
       <WeatherCard
         climate={weatherData?.weather[0].main ?? null}
         location={weatherData?.name ?? null}
-        temperature={parseInt(weatherData?.main.temp) - 273.15 ?? null}
+        temperature={weatherData?.main.temp ?? null}
         isLoadingWeatherData={isLoadingWeatherData}
         isErrorWeatherData={isErrorWeatherData}
       />
     );
   };
 
+  const renderNewsCards = () => {
+    if (isNewsLoading) {
+      return (
+        <Box sx={{ mt: "20rem", display: "flex", justifyContent: "center" }}>
+          <Spinner message="Loading please wait..." />
+        </Box>
+      );
+    }
+    if (newsData?.length === 0 && !isNewsLoading) {
+      return (
+        <Box sx={{ mt: "20rem", display: "flex", justifyContent: "center" }}>
+          <NotFound message="Sorry no news found please try again later." />
+        </Box>
+      );
+    }
+    return (
+      <Box sx={{ mt: "16rem" }}>
+        <Title
+          heading="Today's Top News Headlines"
+          searchTerm={debouncedSearchTerm}
+        />
+        <Grid container spacing={3}>
+          {newsData?.map((item, index) => {
+            return (
+              <Grid key={index} item xs={12} sm={6} lg={3}>
+                <Card
+                  imageURL={item.urlToImage}
+                  author={item.author}
+                  title={item.title}
+                  content={item.content}
+                  description={item.description}
+                  publishedAt={item.publishedAt}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Box>
+    );
+  };
+
   return (
     <>
       <Navbar>
-        <ToolBar>
-          <SearchBox
-            name="Search News"
-            label="Search News"
-            type="text"
-            variant="outlined"
-            value={searchTerm}
-            handleChange={handleSearchChange}
-          />
-          <Stack spacing={2} direction="row">
-            <SelectBox
-              label="Select Language"
-              name="Select Language"
-              variant="outlined"
-              value={language}
-              options={COUNTRIES}
-              handleChange={handleCountryChange}
-            />
-            <SelectBox
-              label="Sort By"
-              name="Sort By"
-              variant="outlined"
-              value={sort}
-              options={SORT_BY}
-              handleChange={handleSortChange}
-            />
-          </Stack>
-        </ToolBar>
+        <ToolBar
+          searchTerm={searchTerm}
+          handleSearchChange={setSearchTerm}
+          language={language}
+          countryOptions={COUNTRIES}
+          handleLanguageChange={setLanguage}
+          sort={sort}
+          sortOptions={SORT_BY}
+          handleSortChange={setSort}
+        />
         {renderWeatherCard()}
       </Navbar>
       <Layout>
-        <Box sx={{ mt: "16rem" }}>
-          <Title heading="Top News Headings" />
-          <Grid container spacing={3}>
-            {MOCK_DATA?.articles?.map((item, index) => {
-              return (
-                <Grid key={index} item xs={12} sm={6} lg={3}>
-                  <Card
-                    imageURL={item.urlToImage}
-                    author={item.author}
-                    title={item.title}
-                    content={item.content}
-                    description={item.description}
-                    publishedAt={item.publishedAt}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Box>
+        {renderNewsCards()}
         <ToastContainer position="bottom-left" />
       </Layout>
     </>

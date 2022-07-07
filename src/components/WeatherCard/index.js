@@ -1,17 +1,13 @@
 import * as React from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
+import CloudOutlinedIcon from "@mui/icons-material/CloudOutlined";
 import { styled } from "@mui/system";
 
-export const Container = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
-  justifyContent: "center",
-  marginTop: "50px",
-  padding: "40px 30px",
-  boxShadow: "rgb(0 0 0 / 2%) 0px 4px 12px",
+export const Container = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "end",
   width: "100%",
-  [theme.breakpoints.down("md")]: {
-    backgroundColor: theme.palette.secondary.main,
-  },
+  alignItems: "center",
 }));
 
 /**
@@ -21,7 +17,7 @@ export const Container = styled(Paper)(({ theme }) => ({
  * @param {temperature} is a number of current weather temperature in degree celsius.
  * @param {isLoadingWeatherData} is a boolean for loading state of the api.
  * @param {isErrorWeatherData} is a boolean for error state of the api.
- * @returns 
+ * @returns
  */
 
 export default function WeatherCard(props) {
@@ -33,27 +29,34 @@ export default function WeatherCard(props) {
     isErrorWeatherData,
   } = props;
 
-  if (isLoadingWeatherData) {
+  const renderWeatherInfo = () => {
+    if (isLoadingWeatherData) {
+      return <Box>Loading...</Box>;
+    }
+    if (isErrorWeatherData || !temperature) {
+      return <Box>No weather details found.</Box>;
+    }
     return (
-      <Box sx={{ display: "flex", justifyContent: "end", width: "100%" }}>
-        Loading...
-      </Box>
+      <Stack direction={{ xs: "row", md: "column" }}>
+        <Typography variant="h6">
+          {temperature && (temperature - 273.15).toFixed(1)}
+          <sup>O</sup>C,
+        </Typography>
+        <Typography variant="body2" sx={{ lineHeight: 2 }}>
+          {climate} {location}
+        </Typography>
+      </Stack>
     );
-  }
-
-  if (isErrorWeatherData) {
-    return (
-      <Box sx={{ display: "flex", justifyContent: "end", width: "100%" }}>
-        No weather details found.
-      </Box>
-    );
-  }
+  };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "end", width: "100%" }}>
-      <Typography variant="body2">
-        {temperature.toFixed(2)} 31<sup>O</sup>C, {climate} {location}
-      </Typography>
-    </Box>
+    <Container>
+      <CloudOutlinedIcon
+        color="primary"
+        sx={{ mr: "1rem" }}
+        fontSize={"large"}
+      />
+      <Stack direction="row">{renderWeatherInfo()}</Stack>
+    </Container>
   );
 }
