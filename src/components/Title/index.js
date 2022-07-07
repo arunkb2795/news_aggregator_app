@@ -1,6 +1,12 @@
 import React from "react";
 import TitleChip from "../Chip";
 
+/**
+ * Title: Title used for set the title
+ * @params {heading }
+ * @params {searchTerm }
+ */
+
 export default function Title(props) {
   const { heading, searchTerm } = props;
   return searchTerm ? (

@@ -6,6 +6,10 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { ThemeContext } from "../../context/ThemeContext";
 
+/**
+ * FabIcon: Used for enable and disable dark mode in mobile
+ */
+
 export default function FabIcon() {
   const { mode, setMode } = useContext(ThemeContext);
   return (

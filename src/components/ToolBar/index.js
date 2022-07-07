@@ -3,6 +3,18 @@ import { Stack } from "@mui/material";
 import SearchBox from "../SearchBox";
 import SelectBox from "../SelectBox";
 
+/**
+ * ToolBar: Used for search,sort and select the language for the news list
+ * @params {searchTerm} term searched using the search box
+ * @params {language} selected language
+ * @params {handleSearchChange} function for change the the search value
+ * @params {countryOptions} available country options
+ * @params {handleLanguageChange} function for change the language selected
+ * @params {sort} selected sort option
+ * @params {sortOptions} available sort options
+ * @params {handleSortChange} function for change the sort option
+ */
+
 export default function ToolBar(props) {
   const {
     searchTerm,

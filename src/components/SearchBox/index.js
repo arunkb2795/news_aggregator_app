@@ -8,6 +8,17 @@ import {
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
+/**
+ * SearchBox: component used for search the news.
+ * @params {label} label of the text box
+ * @params {name} name of the text box
+ * @params {placeholder} placeholder of the box
+ * @params {type} type of the text box
+ * @params {value} value of the text box
+ * @params {variant} variant of the text box {outline,filled}
+ * @params {handleChange} function to change text value
+ */
+
 export default function SearchBox(props) {
   const { label, name, placeholder, type, value, variant, handleChange } =
     props;

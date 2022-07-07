@@ -1,5 +1,9 @@
 import { createTheme } from "@mui/material/styles";
 
+/**
+ * Dark and light theme for material ui theme library
+ */
+
 export const themeLight = createTheme({
   palette: {
     mode: "light",

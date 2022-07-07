@@ -14,6 +14,10 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
+/**
+ * NavBar: component used for top header
+ */
+
 export default function NavBar({ children }) {
   const { mode, setMode } = useContext(ThemeContext);
   const matches = useMediaQuery("(min-width:600px)");

@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import weatherClient from "../api/weatherClient";
 import { toast } from "react-toastify";
-/*
-  weatherDetailsSlice is fetch the weather data from API.
-*/
+
+/**
+ * weatherDetailsSlice: reduxToolkit slice to get the weather details
+ * states
+ * isLoadingWeatherData: loading state for the API endpoint,
+ * isSuccessWeatherData: loading state for the API endpoint,
+ * weatherData: fetched weather details from API endpoint,
+ * isErrorWeatherData: error state for the API endpoint,
+ */
 
 export const weatherDetailsSlice = createSlice({
   name: "weather-details",
@@ -28,6 +34,11 @@ export const weatherDetailsSlice = createSlice({
     },
   },
 });
+
+/**
+ * getWeatherDetails: function to get the weather details.
+ * @parm {data} contain {longitude,altitude} parameters of the current geolocation
+ */
 
 export const getWeatherDetails = (data) => {
   return async (dispatch) => {

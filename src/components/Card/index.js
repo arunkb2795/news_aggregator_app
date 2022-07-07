@@ -19,6 +19,15 @@ export const CardTitle = styled(Typography)(({ theme }) => ({
   overflow: "hidden",
 }));
 
+/**
+ * NewsCard: card for display the news related data
+ * states
+ * @params {imageURL} image URL of the news,
+ * @params {author} author name of the news,
+ * @params {title} news title,
+ * @params {title} published date of the news,
+ */
+
 export default function NewsCard(props) {
   const { imageURL, author, title, publishedAt } = props;
 

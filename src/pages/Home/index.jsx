@@ -28,6 +28,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
+/**
+ * Main page of the application
+ */
+
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
@@ -42,6 +46,11 @@ export default function Home() {
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
+  /**
+   * getCurrentLocationData
+   * function used for getting the current weather information using the user's geoLocation
+   */
+
   const getCurrentLocationData = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -54,13 +63,27 @@ export default function Home() {
     }
   };
 
+  /**
+   * Initial call for the weather information using geolocation
+   */
+
   useEffect(() => {
     getCurrentLocationData();
   }, []);
 
+  /**
+   * dispatch the getTopNewsHeadLines with sort and language parameters
+   * dispatch the function on sort and language change
+   */
+
   useEffect(() => {
     dispatch(getTopNewsHeadLines({ sort: sort, language: language }));
   }, [dispatch, sort, language]);
+
+  /**
+   * dispatch the getSearchedNewsDetails with search key,sort and language parameters
+   * dispatch the function on search term change
+   */
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -74,6 +97,10 @@ export default function Home() {
     }
   }, [dispatch, sort, language, debouncedSearchTerm]);
 
+  /**
+   * weather card function for rendering weather info on main component
+   */
+
   const renderWeatherCard = () => {
     return (
       <WeatherCard
@@ -85,6 +112,10 @@ export default function Home() {
       />
     );
   };
+
+  /**
+   * renderNewsCards  function for rendering news cards main component
+   */
 
   const renderNewsCards = () => {
     if (isNewsLoading) {
@@ -126,6 +157,10 @@ export default function Home() {
       </Box>
     );
   };
+
+  /**
+   * main component for render all the UI including navbar,toolbar,weather card and news card
+   */
 
   return (
     <>

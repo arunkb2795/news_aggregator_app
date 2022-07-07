@@ -1,3 +1,6 @@
+/**
+ * Mock data for the API endpoint
+ */
 export const MOCK_DATA = {
   status: "ok",
   totalResults: 185143,
