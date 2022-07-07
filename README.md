@@ -1,3 +1,31 @@
+# Project Title
+NewsReader
+
+## Screenshots
+![alt text](screens/Light_Mode.png "Light mode Web")
+![alt text](screens/Dark_mode.png "Dark mode Web")
+![alt text](screens/Mobile_light.png "Light mode Mobile")
+![alt text](screens/Mobile_Dark.png "Dark mode Mobile")
+
+## Description
+Local language news aggregator react app which also provides weather information based on the user's GeoLocation.
+
+## Integrated API's
+Open weather map API to fetch weather info - https://openweathermap.org/api
+Newsapi to fetch news service  - https://newsapi.org/ 
+
+## Available features
+- Filter news by user's search query and language
+- Sort by Date published
+- Dark Mode
+- Mobile and Desktop Responsive
+
+## Technology used
+- React
+- Material UI
+- React/Redux Toolkit
+- React Context
+- Axios
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
