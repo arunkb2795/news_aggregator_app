@@ -20,9 +20,25 @@ Local language news aggregator react app which also provides weather information
 ## Description
 Local language news aggregator react app which also provides weather information based on the user's GeoLocation.
 
-## Integrated API's
+# Integrated API's
 Open weather map API to fetch weather info - https://openweathermap.org/api
 Newsapi to fetch news service  - https://newsapi.org/ 
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`REACT_APP_WEATHER_API_KEY`
+ create the API KEY from https://openweathermap.org/api
+
+`REACT_APP_WEATHER_API_BASE_URL` 
+"https://api.openweathermap.org/data/2.5/"
+
+`REACT_APP_NEWS_APP_API_KEY`
+ create the API KEY from https://newsapi.org/ 
+ 
+`REACT_APP_NEWS_APP_BASE_URL`
+"https://newsapi.org/v2/"
 
 ## Available features
 - Filter news by user's search query and language
