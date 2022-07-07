@@ -5,7 +5,6 @@ import moment from "moment";
 import { styled } from "@mui/system";
 
 export const Container = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
   width: "100%",
   [theme.breakpoints.down("md")]: {
     flexWrap: "wrap",

@@ -9,6 +9,7 @@ import {
   ToolBar,
   Spinner,
   NotFound,
+  FabIcon,
 } from "../../components";
 import { Box, Grid } from "@mui/material";
 import {
@@ -25,12 +26,14 @@ import {
 } from "../../redux/newsDetailsSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
   const [sort, setSort] = useState(DEFAULT_SORT);
   const dispatch = useDispatch();
+  const matches = useMediaQuery("(min-width:600px)");
 
   const { isLoadingWeatherData, isErrorWeatherData, weatherData } = useSelector(
     (state) => state.weather
@@ -141,6 +144,9 @@ export default function Home() {
       </Navbar>
       <Layout>
         {renderNewsCards()}
+        <Box sx={{ position: "fixed", bottom: 0, right: 0 }}>
+          {!matches && <FabIcon />}
+        </Box>
         <ToastContainer position="bottom-left" />
       </Layout>
     </>

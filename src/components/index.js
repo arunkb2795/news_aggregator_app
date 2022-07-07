@@ -10,4 +10,6 @@ export { default as ToolBar } from "./ToolBar";
 export { default as Spinner } from "./Spinner";
 export { default as NotFound } from "./NotFound";
 export { default as Chip } from "./Chip";
+export { default as ToggleSwitch } from "./ToggleSwitch";
+export { default as FabIcon } from "./FabIcon";
 
