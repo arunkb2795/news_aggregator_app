@@ -1,10 +1,20 @@
 # Project Title
 NewsReader
+Local language news aggregator react app which also provides weather information based on the user's GeoLocation.
 
 ## Screenshots
+
+## Light mode Web
+
 ![alt text](screens/Light_Mode.png "Light mode Web")
+## Dark mode Web
+
 ![alt text](screens/Dark_mode.png "Dark mode Web")
+## Light mode Mobile
+
 ![alt text](screens/Mobile_light.png "Light mode Mobile")
+## Dark mode Mobile
+
 ![alt text](screens/Mobile_Dark.png "Dark mode Mobile")
 
 ## Description
